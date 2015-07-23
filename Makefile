@@ -39,22 +39,22 @@ $(FFMPEG_CONFIG): deps
 	--extra-ldflags=-L$(FFMPEG_LIB_INSTALL_DIR)
 
 ffmpeg:
-	# link 10-bit h264
-	rm -f $(FFMPEG_X264_ARTIFACT)
-	ln -s $(X264_10_ARTIFACT) $(FFMPEG_X264_ARTIFACT)
-	# build
-	cd $(FFMPEG_SRC_DIR) ; make -j8 
-	# copy 
-	mv $(FFMPEG_SRC_DIR)/ffmpeg $(FFMPEG_10_ARTIFACT)
-	cp $(FFMPEG_SRC_DIR)/ffprobe $(FFPROBE_ARTIFACT)
-	rm $(FFMPEG_SRC_DIR)/ffmpeg_g
 	# link 8-bit h264
 	rm -f $(FFMPEG_X264_ARTIFACT)
 	ln -s $(X264_ARTIFACT) $(FFMPEG_X264_ARTIFACT)
 	# build
+	cd $(FFMPEG_SRC_DIR) ; make -j8 
+	# copy 
+	mv $(FFMPEG_SRC_DIR)/ffmpeg $(FFMPEG_ARTIFACT)
+	cp $(FFMPEG_SRC_DIR)/ffprobe $(FFPROBE_ARTIFACT)
+	rm $(FFMPEG_SRC_DIR)/ffmpeg_g
+	# link 10-bit h264
+	rm -f $(FFMPEG_X264_ARTIFACT)
+	ln -s $(X264_10_ARTIFACT) $(FFMPEG_X264_ARTIFACT)
+	# build
 	cd $(FFMPEG_SRC_DIR) ; make -j8
 	# copy
-	mv $(FFMPEG_SRC_DIR)/ffmpeg $(FFMPEG_ARTIFACT)
+	mv $(FFMPEG_SRC_DIR)/ffmpeg $(FFMPEG_10_ARTIFACT)
 
 clean:
 	cd $(FFMPEG_SRC_DIR) ; make clean
