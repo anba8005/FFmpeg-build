@@ -16,7 +16,6 @@ FFMPEG_CONFIG_OPTS = --disable-shared --enable-static --enable-gpl --disable-ffp
  --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va \
  --disable-libxcb --disable-sdl --disable-xlib --disable-debug
 
-PWD = $(shell pwd)
 FFMPEG_SRC_DIR = $(realpath ../FFMpeg)
 FFMPEG_LIB_INSTALL_DIR = $(shell pwd)/build/lib
 FFMPEG_INCLUDE_INSTALL_DIR = $(shell pwd)/build/include
@@ -33,14 +32,15 @@ deps: $(RTMP_ARTIFACT) $(X264_ARTIFACT) $(X264_10_ARTIFACT) $(FAAC_ARTIFACT)
 config: $(FFMPEG_CONFIG)
 
 $(FFMPEG_CONFIG): deps
+	mkdir -p $(shell pwd)/build
 	cd $(FFMPEG_SRC_DIR) ; ./configure $(FFMPEG_OPTS) $(FFMPEG_CONFIG_OPTS) --libdir=$(FFMPEG_LIB_INSTALL_DIR) \
 	--incdir=$(FFMPEG_INCLUDE_INSTALL_DIR) \
 	--extra-cflags=-I$(FFMPEG_INCLUDE_INSTALL_DIR) \
 	--extra-ldflags=-L$(FFMPEG_LIB_INSTALL_DIR)
 
-ffmpeg: config
+ffmpeg:
 	# link 10-bit h264
-	rm $(FFMPEG_X264_ARTIFACT)
+	rm -f $(FFMPEG_X264_ARTIFACT)
 	ln -s $(X264_10_ARTIFACT) $(FFMPEG_X264_ARTIFACT)
 	# build
 	cd $(FFMPEG_SRC_DIR) ; make -j8 
@@ -55,4 +55,12 @@ ffmpeg: config
 	cd $(FFMPEG_SRC_DIR) ; make -j8
 	# copy
 	mv $(FFMPEG_SRC_DIR)/ffmpeg $(FFMPEG_ARTIFACT)
+
+clean:
+	cd $(FFMPEG_SRC_DIR) ; make clean
 	
+distclean: clean-x264 clean-x264_10 clean-faac clean-rtmp
+	cd $(FFMPEG_SRC_DIR) ; make distclean 
+	rm -rf $(shell pwd)/build
+	
+
