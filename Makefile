@@ -16,7 +16,7 @@ FFMPEG_CONFIG_OPTS = --disable-shared --enable-static --enable-gpl --disable-ffp
  --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va \
  --disable-libxcb --disable-sdl --disable-xlib --disable-debug
 
-FFMPEG_SRC_DIR = $(realpath ../FFMpeg)
+FFMPEG_SRC_DIR = $(realpath ../FFmpeg)
 FFMPEG_LIB_INSTALL_DIR = $(shell pwd)/build/lib
 FFMPEG_INCLUDE_INSTALL_DIR = $(shell pwd)/build/include
 FFMPEG_X264_ARTIFACT = $(FFMPEG_LIB_INSTALL_DIR)/libx264.a
@@ -33,6 +33,10 @@ config: $(FFMPEG_CONFIG)
 
 $(FFMPEG_CONFIG): deps
 	mkdir -p $(shell pwd)/build
+	# link 8-bit h264
+	rm -f $(FFMPEG_X264_ARTIFACT)
+	ln -s $(X264_ARTIFACT) $(FFMPEG_X264_ARTIFACT)
+	#
 	cd $(FFMPEG_SRC_DIR) ; ./configure $(FFMPEG_OPTS) $(FFMPEG_CONFIG_OPTS) --libdir=$(FFMPEG_LIB_INSTALL_DIR) \
 	--incdir=$(FFMPEG_INCLUDE_INSTALL_DIR) \
 	--extra-cflags=-I$(FFMPEG_INCLUDE_INSTALL_DIR) \
