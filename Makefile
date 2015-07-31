@@ -41,7 +41,7 @@ $(FFMPEG_CONFIG): deps
 	cd $(FFMPEG_SRC_DIR) ; ./configure $(FFMPEG_OPTS) $(FFMPEG_CONFIG_OPTS) --libdir=$(FFMPEG_LIB_INSTALL_DIR) \
 	--incdir=$(FFMPEG_INCLUDE_INSTALL_DIR) \
 	--extra-cflags="-I$(FFMPEG_INCLUDE_DIR) -I$(FFMPEG_INCLUDE_INSTALL_DIR)" \
-	--extra-ldflags=-L$(FFMPEG_LIB_INSTALL_DIR)
+	--extra-ldflags="-L$(FFMPEG_LIB_INSTALL_DIR) -ldl" --extra-libs=-ldl
 
 ffmpeg:
 	# link 8-bit h264
