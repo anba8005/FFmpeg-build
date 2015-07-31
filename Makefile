@@ -11,13 +11,14 @@ include mk/x264.mk
 include mk/x264_10.mk
 
 FFMPEG_CONFIG_OPTS = --disable-shared --enable-static --enable-gpl --disable-ffplay --enable-ffmpeg \
- --disable-ffserver --enable-ffprobe --disable-avdevice --enable-nonfree --enable-zlib --enable-postproc \
+ --disable-ffserver --enable-ffprobe --enable-nonfree --enable-zlib --enable-postproc \
  --enable-libfaac --enable-libx264 --disable-bzlib --enable-runtime-cpudetect \
  --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va \
- --disable-libxcb --disable-sdl --disable-xlib --disable-debug
+ --disable-libxcb --disable-sdl --disable-xlib --disable-debug --enable-decklink
 
 FFMPEG_SRC_DIR = $(realpath ../FFmpeg)
 FFMPEG_LIB_INSTALL_DIR = $(shell pwd)/build/lib
+FFMPEG_INCLUDE_DIR = $(shell pwd)/src/include
 FFMPEG_INCLUDE_INSTALL_DIR = $(shell pwd)/build/include
 FFMPEG_X264_ARTIFACT = $(FFMPEG_LIB_INSTALL_DIR)/libx264.a
 FFMPEG_CONFIG = $(FFMPEG_SRC_DIR)/config.mak
@@ -39,7 +40,7 @@ $(FFMPEG_CONFIG): deps
 	#
 	cd $(FFMPEG_SRC_DIR) ; ./configure $(FFMPEG_OPTS) $(FFMPEG_CONFIG_OPTS) --libdir=$(FFMPEG_LIB_INSTALL_DIR) \
 	--incdir=$(FFMPEG_INCLUDE_INSTALL_DIR) \
-	--extra-cflags=-I$(FFMPEG_INCLUDE_INSTALL_DIR) \
+	--extra-cflags="-I$(FFMPEG_INCLUDE_DIR) -I$(FFMPEG_INCLUDE_INSTALL_DIR)" \
 	--extra-ldflags=-L$(FFMPEG_LIB_INSTALL_DIR)
 
 ffmpeg:
