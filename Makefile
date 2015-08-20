@@ -39,7 +39,8 @@ $(FFMPEG_CONFIG): deps
 	ln -s $(X264_ARTIFACT) $(FFMPEG_X264_ARTIFACT)
 	#
 	cd $(FFMPEG_SRC_DIR) ; ./configure $(FFMPEG_OPTS) $(FFMPEG_CONFIG_OPTS) --libdir=$(FFMPEG_LIB_INSTALL_DIR) \
-	--incdir=$(FFMPEG_INCLUDE_INSTALL_DIR) \
+	--incdir=$(FFMPEG_INCLUDE_INSTALL_DIR) --disable-doc --disable-htmlpages --disable-manpages --disable-podpages --disable-txtpages \
+	--prefix=/tmp/ffmpeg \
 	--extra-cflags="-I$(FFMPEG_INCLUDE_DIR) -I$(FFMPEG_INCLUDE_INSTALL_DIR)" \
 	--extra-ldflags="-L$(FFMPEG_LIB_INSTALL_DIR) -ldl" --extra-libs=-ldl
 
@@ -60,6 +61,8 @@ ffmpeg:
 	cd $(FFMPEG_SRC_DIR) ; make -j8
 	# copy
 	mv $(FFMPEG_SRC_DIR)/ffmpeg $(FFMPEG_10_ARTIFACT)
+	# install
+	cd $(FFMPEG_SRC_DIR) ; make install
 
 clean:
 	cd $(FFMPEG_SRC_DIR) ; make clean
