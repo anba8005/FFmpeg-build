@@ -10,11 +10,11 @@ include mk/faac.mk
 include mk/x264.mk
 include mk/x264_10.mk
 
-FFMPEG_CONFIG_OPTS = --disable-shared --enable-static --enable-gpl --disable-ffplay --enable-ffmpeg \
+FFMPEG_CONFIG_OPTS = --enable-pic --disable-shared --enable-static --enable-gpl --disable-ffplay --enable-ffmpeg \
  --disable-ffserver --enable-ffprobe --enable-nonfree --enable-zlib --enable-postproc \
  --enable-libfaac --enable-libx264 --disable-bzlib --enable-runtime-cpudetect \
  --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va \
- --disable-libxcb --enable-sdl --disable-xlib --disable-debug --enable-decklink
+ --disable-libxcb --enable-sdl --disable-xlib --disable-debug --enable-decklink --disable-indev=jack
 
 FFMPEG_SRC_DIR = $(realpath ../FFmpeg)
 FFMPEG_LIB_INSTALL_DIR = $(shell pwd)/build/lib
