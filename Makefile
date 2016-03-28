@@ -14,7 +14,8 @@ FFMPEG_CONFIG_OPTS = --enable-pic --disable-shared --enable-static --enable-gpl 
  --disable-ffserver --enable-ffprobe --enable-nonfree --enable-zlib --enable-postproc \
  --enable-libfaac --enable-libx264 --disable-bzlib --enable-runtime-cpudetect \
  --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va \
- --disable-libxcb --enable-sdl --disable-xlib --disable-debug --enable-decklink --disable-indev=jack
+ --disable-libxcb --enable-sdl --disable-xlib --disable-debug --enable-decklink --disable-indev=jack \
+ --enable-libfreetype
 
 FFMPEG_SRC_DIR = $(realpath ../FFmpeg)
 FFMPEG_LIB_INSTALL_DIR = $(shell pwd)/build/lib

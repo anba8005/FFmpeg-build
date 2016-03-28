@@ -1,4 +1,4 @@
-X264_SRC_NAME = x264-snapshot-20150722-2245-stable
+X264_SRC_NAME = x264-snapshot-20160327-2245-stable
 X264_SRC_ARCHIVE = src/$(X264_SRC_NAME).tar.bz2
 
 X264_SRC_DIR = /tmp/x264
