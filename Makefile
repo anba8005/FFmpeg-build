@@ -7,6 +7,7 @@ X264_10_OPTS = --enable-pic
 
 include mk/rtmp.mk
 include mk/faac.mk
+include mk/fdk-aac.mk
 include mk/x264.mk
 include mk/x264_10.mk
 
@@ -15,7 +16,7 @@ FFMPEG_CONFIG_OPTS = --enable-pic --disable-shared --enable-static --enable-gpl 
  --enable-libfaac --enable-libx264 --disable-bzlib --enable-runtime-cpudetect \
  --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va \
  --disable-libxcb --enable-sdl --disable-xlib --disable-debug --enable-decklink --disable-indev=jack \
- --enable-libfreetype
+ --enable-libfreetype --enable-libfdk-aac
 
 FFMPEG_SRC_DIR = $(realpath ../FFmpeg)
 FFMPEG_LIB_INSTALL_DIR = $(shell pwd)/build/lib
@@ -29,7 +30,7 @@ FFMPEG_10_ARTIFACT = $(shell pwd)/build/ffmpeg-10bit
 FFPROBE_ARTIFACT = $(shell pwd)/build/ffprobe
 
 
-deps: $(RTMP_ARTIFACT) $(X264_ARTIFACT) $(X264_10_ARTIFACT) $(FAAC_ARTIFACT)
+deps: $(RTMP_ARTIFACT) $(X264_ARTIFACT) $(X264_10_ARTIFACT) $(FAAC_ARTIFACT) $(FDK_AAC_ARTIFACT)
 
 config: $(FFMPEG_CONFIG)
 
