@@ -4,6 +4,8 @@ RTMP_OPTS = -fPIC
 FAAC_OPTS = --with-pic 
 X264_OPTS = --enable-pic
 X264_10_OPTS = --enable-pic
+FDK_AAC_OPTS = --with-pic
+
 
 include mk/rtmp.mk
 include mk/faac.mk
