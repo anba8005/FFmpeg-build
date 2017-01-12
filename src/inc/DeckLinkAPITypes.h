@@ -1,5 +1,5 @@
 /* -LICENSE-START-
-** Copyright (c) 2016 Blackmagic Design
+** Copyright (c) 2014 Blackmagic Design
 **
 ** Permission is hereby granted, free of charge, to any person or organization
 ** obtaining a copy of the software and accompanying documentation covered by
@@ -54,8 +54,7 @@ typedef uint32_t BMDTimecodeFlags;
 enum _BMDTimecodeFlags {
     bmdTimecodeFlagDefault                                       = 0,
     bmdTimecodeIsDropFrame                                       = 1 << 0,
-    bmdTimecodeFieldMark                                         = 1 << 1,
-    bmdTimecodeColorFrame                                        = 1 << 2
+    bmdTimecodeFieldMark                                         = 1 << 1
 };
 
 /* Enum BMDVideoConnection - Video connection types */
@@ -78,17 +77,7 @@ enum _BMDAudioConnection {
     bmdAudioConnectionAESEBU                                     = 1 << 1,
     bmdAudioConnectionAnalog                                     = 1 << 2,
     bmdAudioConnectionAnalogXLR                                  = 1 << 3,
-    bmdAudioConnectionAnalogRCA                                  = 1 << 4,
-    bmdAudioConnectionMicrophone                                 = 1 << 5,
-    bmdAudioConnectionHeadphones                                 = 1 << 6
-};
-
-/* Enum BMDDeckControlConnection - Deck control connections */
-
-typedef uint32_t BMDDeckControlConnection;
-enum _BMDDeckControlConnection {
-    bmdDeckControlConnectionRS422Remote1                         = 1 << 0,
-    bmdDeckControlConnectionRS422Remote2                         = 1 << 1
+    bmdAudioConnectionAnalogRCA                                  = 1 << 4
 };
 
 // Forward Declarations
