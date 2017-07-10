@@ -17,8 +17,8 @@ FFMPEG_CONFIG_OPTS = --enable-pic --disable-shared --enable-static --enable-gpl 
  --disable-ffserver --enable-ffprobe --enable-nonfree --enable-zlib --enable-postproc \
  --enable-libfaac --enable-libx264 --disable-bzlib --enable-runtime-cpudetect \
  --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va \
- --disable-libxcb --enable-sdl --disable-xlib --disable-debug --enable-decklink --disable-indev=jack \
- --enable-libfreetype --enable-libfdk-aac
+ --disable-libxcb --disable-sdl --disable-xlib --disable-debug --enable-decklink --disable-indev=jack \
+ --enable-libfreetype --enable-libfdk-aac --enable-libzmq
 
 FFMPEG_SRC_DIR = $(realpath ../FFmpeg)
 FFMPEG_LIB_INSTALL_DIR = $(shell pwd)/build/lib
@@ -53,7 +53,7 @@ ffmpeg:
 	rm -f $(FFMPEG_X264_ARTIFACT)
 	ln -s $(X264_ARTIFACT) $(FFMPEG_X264_ARTIFACT)
 	# build
-	cd $(FFMPEG_SRC_DIR) ; make -j8 
+	cd $(FFMPEG_SRC_DIR) ; make -j4
 	# copy 
 	mv $(FFMPEG_SRC_DIR)/ffmpeg $(FFMPEG_ARTIFACT)
 	cp $(FFMPEG_SRC_DIR)/ffprobe $(FFPROBE_ARTIFACT)
@@ -62,7 +62,7 @@ ffmpeg:
 	rm -f $(FFMPEG_X264_ARTIFACT)
 	ln -s $(X264_10_ARTIFACT) $(FFMPEG_X264_ARTIFACT)
 	# build
-	cd $(FFMPEG_SRC_DIR) ; make -j8
+	cd $(FFMPEG_SRC_DIR) ; make -j4
 	# copy
 	mv $(FFMPEG_SRC_DIR)/ffmpeg $(FFMPEG_10_ARTIFACT)
 	# install
