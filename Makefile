@@ -1,13 +1,11 @@
 .DEFAULT_GOAL := ffmpeg
 
-RTMP_OPTS = -fPIC
 FAAC_OPTS = --with-pic 
 X264_OPTS = --enable-pic
 X264_10_OPTS = --enable-pic
 FDK_AAC_OPTS = --with-pic
 
 
-include mk/rtmp.mk
 include mk/faac.mk
 include mk/fdk-aac.mk
 include mk/x264.mk
@@ -18,7 +16,7 @@ FFMPEG_CONFIG_OPTS = --enable-pic --disable-shared --enable-static --enable-gpl 
  --enable-libfaac --enable-libx264 --disable-bzlib --enable-runtime-cpudetect \
  --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va \
  --disable-libxcb --disable-sdl --disable-xlib --disable-debug --enable-decklink --disable-indev=jack \
- --enable-libfreetype --enable-libfdk-aac
+ --enable-libfreetype --enable-libfdk-aac --enable-libwebp
 
 FFMPEG_SRC_DIR = $(realpath ../FFmpeg)
 FFMPEG_LIB_INSTALL_DIR = $(shell pwd)/build/lib
@@ -32,7 +30,7 @@ FFMPEG_10_ARTIFACT = $(shell pwd)/build/ffmpeg-10bit
 FFPROBE_ARTIFACT = $(shell pwd)/build/ffprobe
 
 
-deps: $(RTMP_ARTIFACT) $(X264_ARTIFACT) $(X264_10_ARTIFACT) $(FAAC_ARTIFACT) $(FDK_AAC_ARTIFACT)
+deps: $(X264_ARTIFACT) $(X264_10_ARTIFACT) $(FAAC_ARTIFACT) $(FDK_AAC_ARTIFACT)
 
 config: $(FFMPEG_CONFIG)
 
@@ -71,7 +69,7 @@ ffmpeg:
 clean:
 	cd $(FFMPEG_SRC_DIR) ; make clean
 	
-distclean: clean-x264 clean-x264_10 clean-faac clean-rtmp
+distclean: clean-x264 clean-x264_10 clean-faac
 	cd $(FFMPEG_SRC_DIR) ; make distclean 
 	rm -rf $(shell pwd)/build
 	
