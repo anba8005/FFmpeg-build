@@ -1,22 +1,24 @@
 .DEFAULT_GOAL := ffmpeg
 
+FAAC_OPTS = --with-pic 
 X264_OPTS = --enable-pic
 X264_10_OPTS = --enable-pic
-X264_VERSION = 20211111-2245
+X264_VERSION = 20170111-2245
 
+
+include mk/faac.mk
 include mk/x264.mk
 include mk/x264_10.mk
 
 FFMPEG_CONFIG_OPTS = --enable-pic --disable-shared --enable-static --enable-gpl --disable-ffplay --enable-ffmpeg \
- --enable-ffprobe --enable-nonfree --enable-zlib --enable-postproc \
- --enable-libx264 --disable-bzlib --enable-runtime-cpudetect \
- --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va \
- --disable-libxcb --disable-xlib --disable-debug --enable-decklink --disable-indev=jack \
- --enable-libfreetype --enable-libfdk-aac --enable-libwebp --enable-nvenc --enable-vaapi
+ --disable-ffserver --enable-ffprobe --enable-nonfree --enable-zlib --enable-postproc \
+ --enable-libfaac --enable-libx264 --disable-bzlib --enable-runtime-cpudetect \
+ --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-d3d11va --disable-vaapi \
+ --disable-libxcb --disable-sdl --disable-xlib --disable-debug --enable-decklink --disable-indev=jack
 
 FFMPEG_SRC_DIR = $(realpath ../FFmpeg)
 FFMPEG_LIB_INSTALL_DIR = $(shell pwd)/build/lib
-FFMPEG_INCLUDE_DIR = $(shell pwd)/src/include-fresh
+FFMPEG_INCLUDE_DIR = $(shell pwd)/src/include
 FFMPEG_INCLUDE_INSTALL_DIR = $(shell pwd)/build/include
 FFMPEG_X264_ARTIFACT = $(FFMPEG_LIB_INSTALL_DIR)/libx264.a
 FFMPEG_CONFIG = $(FFMPEG_SRC_DIR)/config.mak
@@ -26,7 +28,7 @@ FFMPEG_10_ARTIFACT = $(shell pwd)/build/ffmpeg-10bit
 FFPROBE_ARTIFACT = $(shell pwd)/build/ffprobe
 
 
-deps: $(X264_ARTIFACT) $(X264_10_ARTIFACT)
+deps: $(X264_ARTIFACT) $(X264_10_ARTIFACT) $(FAAC_ARTIFACT)
 
 config: $(FFMPEG_CONFIG)
 
@@ -65,7 +67,7 @@ ffmpeg:
 clean:
 	cd $(FFMPEG_SRC_DIR) ; make clean
 	
-distclean: clean-x264 clean-x264_10
+distclean: clean-x264 clean-x264_10 clean-faac
 	cd $(FFMPEG_SRC_DIR) ; make distclean 
 	rm -rf $(shell pwd)/build
 	

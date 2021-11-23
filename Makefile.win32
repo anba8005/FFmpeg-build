@@ -3,6 +3,7 @@
 FAAC_OPTS = --host=x86_64-w64-mingw32
 X264_OPTS = --cross-prefix=x86_64-w64-mingw32- --host=x86_64-w64-mingw32
 X264_10_OPTS = --cross-prefix=x86_64-w64-mingw32- --host=x86_64-w64-mingw32
+X264_VERSION = 20211111-2245
 
 include mk/faac.mk
 include mk/x264.mk
